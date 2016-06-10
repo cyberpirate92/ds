@@ -1,3 +1,8 @@
+/*
+ * Single Linked List
+ * @author cyberpirate92
+ */
+
 #include<stdio.h>
 #include<malloc.h>
 
@@ -7,6 +12,7 @@ typedef struct element
   struct element *next;
 }node;
 
+// function prototypes
 int getInput(char *);
 int countItems(node *);
 void traverse(node *);
@@ -57,6 +63,9 @@ int main()
   return 0;
 }
 
+/*
+ *utility function to get a integer input
+ */
 int getInput(char *display)
 {
   int temp;
@@ -65,6 +74,10 @@ int getInput(char *display)
   return temp;
 }
 
+
+/*
+ * count the number of nodes in the given list
+ */
 int countItems(node *head)
 {
   int count = 0;
@@ -76,21 +89,29 @@ int countItems(node *head)
   return count;
 }
 
-void traverse(node *head)
+/*
+ * Display all the elements in the single linked list.
+ * NOTE: root->next must be passed as argument in order to prevent traversing it.
+ */
+void traverse(node *first)
 {
-  if(head == NULL)
+  if(first == NULL)
   {
     printf("List empty. \n");
     return;
   }
-  while(head != NULL)
+  while(first != NULL)
   {
-    printf("\t%d",head->data);
-    head = head->next;
+    printf("\t%d",first->data);
+    first = first->next;
   }
   printf("\n");
 }
 
+/*
+ * Add an element to the linked list
+ * @params: root node, data to be added
+ */
 void addToList(node *head, int data)
 {
   while(head->next != NULL)
@@ -102,6 +123,10 @@ void addToList(node *head, int data)
   head->data = data;
 }
 
+/*
+ * Delete the node containing the given data.
+ * NOTE: If multiple nodes exist with the same data, the first node containing the data will get deleted.
+ */
 void removeFromList(node *head, int data)
 {
   while(head->next != NULL && (head->next)->data != data)
