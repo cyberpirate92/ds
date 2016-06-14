@@ -19,6 +19,7 @@ int isQueueEmpty();
 int main() {
     int data, choice;
     do {
+        printf("\n Number of elements in Queue: %d \n", count);
         printf(" 1. Enqueue \n");
         printf(" 2. Dequeue \n");
         printf(" 3. View \n");
@@ -61,8 +62,7 @@ int isQueueEmpty() {
 
 // add data to the queue
 void enqueue(int data) {
-    start = start % QUEUE_LENGTH;
-    if(isQueueFull) {
+    if(isQueueFull()) {
         printf("\t\t Queue full. \n");
     }
     else {
@@ -84,17 +84,17 @@ void dequeue() {
     }
 }
 
-// view elements in the stack
+// view elements in the queue
 void view() {
     if(isQueueEmpty()) {
         printf("\t\t Queue Empty. \n");
     }
     else {
-        int i = start;
-        while(i != end) {
+        int i = end;
+        do {
             printf("\t%d", queue[i++]);
             i = i % QUEUE_LENGTH;
-        }
+        } while(i != start);
         printf("\n");
     }
 }
