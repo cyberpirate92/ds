@@ -44,9 +44,20 @@ int doBinarySearch(int *array, int arrLength, int searchData) {
     right = arrLength - 1;
     mid = (left + right) / 2;
 
-    while(left <= right ) {
+    // since array is sorted,
+    if(searchData > array[right] || searchData < array[left] ) {
+        return -1;
+    }
+
+    while(left >= 0 && left <= right && right <= arrLength) {
         if(searchData == array[mid]) {
             return mid;
+        }
+        else if(searchData == array[left]) {
+            return left;
+        }
+        else if(searchData == array[right]) {
+            return right;
         }
         else if(searchData > array[mid]) {
             left = mid;
@@ -54,15 +65,8 @@ int doBinarySearch(int *array, int arrLength, int searchData) {
         else {
             right = mid;
         }
-
         mid = (left + right) / 2;
-
-        if(left == mid) {
-            left = mid + 1;
-            mid = (left + right) / 2;
-        }
     }
-
     return -1;
 }
 
