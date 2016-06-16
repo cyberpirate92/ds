@@ -36,6 +36,7 @@ int main() {
             printf("%d found at position %d. \n", data, index);
         }
     }while(1);
+    return 0;
 }
 
 int doBinarySearch(int *array, int arrLength, int searchData) {
@@ -78,6 +79,7 @@ void printArray(int *array, int arrLength) {
     printf("\n");
 }
 
+// simple bubble sort
 void sort(int *array, int arrLength) {
     int i, j;
     for(i=0; i<arrLength; i++) {
