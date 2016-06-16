@@ -60,10 +60,10 @@ int doBinarySearch(int *array, int arrLength, int searchData) {
             return right;
         }
         else if(searchData > array[mid]) {
-            left = mid;
+            left = mid+1;
         }
         else {
-            right = mid;
+            right = mid-1;
         }
         mid = (left + right) / 2;
     }
