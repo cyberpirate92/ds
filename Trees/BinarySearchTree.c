@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
-#define LEFT 0
-#define RIGHT 1
+#define TRUE 1
+#define FALSE 0
 
 typedef struct Node {
     int data;
@@ -12,6 +12,7 @@ typedef struct Node {
 int getInput(char *);
 TreeNode* addToTree(TreeNode*, int);
 void deleteFromTree(TreeNode*, int);
+int valueExists(TreeNode*, int);
 void inOrderTraversal(TreeNode*);
 void preOrderTraversal(TreeNode*);
 void postOrderTraversal(TreeNode*);
@@ -28,7 +29,8 @@ int main() {
         printf("1. Add element \n");
         printf("2. Delete element \n");
         printf("3. Traverse Tree \n");
-        printf("4. Exit \n");
+        printf("4. Search \n");
+        printf("5. Exit \n");
         choice = getInput("Your Choice: ");
         switch(choice) {
             case 1:
@@ -52,12 +54,20 @@ int main() {
                 printf("\n\n");
                 break;
             case 4:
+                data = getInput("Element to search : ");
+                if(valueExists(temp, data)) {
+                    printf("%d found in tree. \n", data);
+                }
+                else {
+                    printf("%d not found in tree. \n", data);
+                }
+            case 5:
                 printf("Bye! \n");
                 break;
             default:
                 printf("Invalid choice! \n");
         }
-    }while(choice != 4);
+    }while(choice != 5);
     return 0;
 }
 
@@ -74,7 +84,7 @@ TreeNode* addToTree(TreeNode *rootNode, int data) {
     temp->left = NULL;
     temp->right = NULL;
 
-    if(rootNode == NULL) {
+    if(rootNode == NULL) { // initializing the root node of the tree
         rootNode = temp;
     }
     else {
@@ -82,6 +92,7 @@ TreeNode* addToTree(TreeNode *rootNode, int data) {
             if(data < rootNode->data) {
                 if(rootNode->left != NULL) {
                     rootNode = rootNode->left;
+                    printf("\nleft");
                 }
                 else {
                     rootNode->left = temp;
@@ -128,4 +139,21 @@ void postOrderTraversal(TreeNode *rootNode) {
         postOrderTraversal(rootNode->right);
         printf("\t %d",rootNode->data);
     }
+}
+
+int valueExists(TreeNode* node, int value) {
+    if(node != NULL) {
+        while(node!= NULL) {
+            if(value == node->data) {
+                return TRUE;
+            }
+            else if(value < node->data) {
+                node = node->left;
+            }
+            else {
+                node = node->right;
+            }
+        }
+    }
+    return FALSE;
 }
