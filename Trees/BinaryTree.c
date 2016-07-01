@@ -12,12 +12,14 @@ typedef struct Node {
 int getInput(char *);
 TreeNode* addToTree(TreeNode*, int);
 void deleteFromTree(TreeNode*, int);
-void traverseTree(TreeNode*);
+void inOrderTraversal(TreeNode*);
+void preOrderTraversal(TreeNode*);
+void postOrderTraversal(TreeNode*);
 
 int main() {
 
     // The root node does not have any parents
-    TreeNode *root;
+    TreeNode *root, *temp;
     root = NULL;
     int choice, data;
 
@@ -32,15 +34,22 @@ int main() {
             case 1:
                 data = getInput("Element to add : ");
                 root = addToTree(root, data);
+                if(temp == NULL) {
+                    temp = root;
+                }
                 break;
             case 2:
                 data = getInput("Element to delete : ");
                 deleteFromTree(root, data);
                 break;
             case 3:
-                printf("\n");
-                traverseTree(root);
-                printf("\n");
+                printf("\n\nIn-order: ");
+                inOrderTraversal(temp);
+                printf("\n\nPre-Order: ");
+                preOrderTraversal(temp);
+                printf("\n\nPost-Order: ");
+                postOrderTraversal(temp);
+                printf("\n\n");
                 break;
             case 4:
                 printf("Bye! \n");
@@ -97,10 +106,26 @@ void deleteFromTree(TreeNode *rootNode, int data) {
     //TODO: node deletion code goes here :)
 }
 
-void traverseTree(TreeNode *rootNode) {
+void inOrderTraversal(TreeNode *rootNode) {
     if(rootNode != NULL) {
-        traverseTree(rootNode->left);
+        inOrderTraversal(rootNode->left);
         printf("\t %d", rootNode->data);
-        traverseTree(rootNode->right);
+        inOrderTraversal(rootNode->right);
+    }
+}
+
+void preOrderTraversal(TreeNode *rootNode) {
+    if(rootNode != NULL) {
+        printf("\t %d", rootNode->data);
+        preOrderTraversal(rootNode->left);
+        preOrderTraversal(rootNode->right);
+    }
+}
+
+void postOrderTraversal(TreeNode *rootNode) {
+    if(rootNode != NULL) {
+        postOrderTraversal(rootNode->left);
+        postOrderTraversal(rootNode->right);
+        printf("\t %d",rootNode->data);
     }
 }
