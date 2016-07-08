@@ -9,27 +9,55 @@ void printArray(int *arr, int length) {
     printf("\n");
 }
 
-void merge(int *arr, int low, int high) {
-    int mid = (low + high) / 2;
-    for(int i=low; i<=mid; i++) {
-        for(int j=mid+1; j<=high; j++) {
-            if(arr[i] > arr[j]) {
-                int temp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = temp;
-                //break; // {EXPERIMENTAL!!}
-            }
-        }
-    }
-    printArray(arr, high);
+int* splitArray(int array[], int from, int to) {
+    int *split = (int *) malloc(sizeof(int) * (to-from));
+    for(int i=from, j=0; i<to; i++, j++)
+        split[j] = array[i];
+    return split;
 }
 
-void mergeSort(int *arr, int low, int high) {
-    if(low < high) {
-        int mid = (low + high) / 2; // for splitting the array
-        mergeSort(arr, low, mid);
-        mergeSort(arr, mid+1, high);
-        merge(arr, low, high-1);
+void mergeSort(int *array, int arrLen) {
+    if(arrLen > 1) {
+        printf("\n ArrLen : %d", arrLen);
+        int mid = arrLen/2;
+        int *leftHalf, *rightHalf;
+        int leftHalfLength, rightHalfLength;
+
+        leftHalf = splitArray(array, 0, mid);
+        leftHalfLength = mid;
+        printf("\n Left half ");
+        printArray(leftHalf, leftHalfLength);
+
+        rightHalf = splitArray(array, mid, arrLen);
+        rightHalfLength = arrLen-mid;
+        printf("\n Right half ");
+        printArray(rightHalf, rightHalfLength);
+
+        mergeSort(leftHalf, leftHalfLength);
+        mergeSort(rightHalf, rightHalfLength);
+
+        int i,j,k;
+        i = 0;
+        j = 0;
+        k = 0;
+
+        while( i<leftHalfLength && j<rightHalfLength) {
+            if(leftHalf[i] < rightHalf[j])
+                array[k++] = leftHalf[i++];
+            else
+                array[k++] = rightHalf[j++];
+        }
+        while(i < leftHalfLength) {
+            array[k++] = leftHalf[i++];
+        }
+        while(j < rightHalfLength) {
+            array[k++] = rightHalf[j++];
+        }
+        free(leftHalf);
+        free(rightHalf);
+
+        printf("\n ...");
+        printArray(array, arrLen);
     }
 }
 
@@ -42,7 +70,7 @@ int main() {
         printf("%d => ",(i+1));
         scanf("%d", &arr[i]);
     }
-    mergeSort(arr, 0, size);
+    mergeSort(arr, size);
     printf("Final sorted array");
     printArray(arr,size);
     return 0;
