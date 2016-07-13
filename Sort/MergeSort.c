@@ -2,7 +2,6 @@
 #include<stdlib.h>
 
 void printArray(int *arr, int length) {
-    printf("\n # High : %d \n", length);
     for(int i=0; i<length; i++) {
         printf("%d\t", arr[i]);
     }
@@ -18,20 +17,15 @@ int* splitArray(int array[], int from, int to) {
 
 void mergeSort(int *array, int arrLen) {
     if(arrLen > 1) {
-        printf("\n ArrLen : %d", arrLen);
         int mid = arrLen/2;
         int *leftHalf, *rightHalf;
         int leftHalfLength, rightHalfLength;
 
         leftHalf = splitArray(array, 0, mid);
         leftHalfLength = mid;
-        printf("\n Left half ");
-        printArray(leftHalf, leftHalfLength);
 
         rightHalf = splitArray(array, mid, arrLen);
         rightHalfLength = arrLen-mid;
-        printf("\n Right half ");
-        printArray(rightHalf, rightHalfLength);
 
         mergeSort(leftHalf, leftHalfLength);
         mergeSort(rightHalf, rightHalfLength);
@@ -55,9 +49,6 @@ void mergeSort(int *array, int arrLen) {
         }
         free(leftHalf);
         free(rightHalf);
-
-        printf("\n ...");
-        printArray(array, arrLen);
     }
 }
 
@@ -71,7 +62,7 @@ int main() {
         scanf("%d", &arr[i]);
     }
     mergeSort(arr, size);
-    printf("Final sorted array");
+    printf("Final sorted array: \t");
     printArray(arr,size);
     return 0;
 }
