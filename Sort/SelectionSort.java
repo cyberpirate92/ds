@@ -10,7 +10,7 @@ class SelectionSort {
         print(sort(testData));
     }
 
-    public static int[] sort(int[]x a) {
+    public static int[] sort(int[] a) {
         int minIndex, minVal;
         for(int i=0; i<a.length-1; i++) {
             minVal = a[i];
